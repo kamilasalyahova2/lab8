@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Об авторе - {{app_name}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="margin: 20px;">
+    <h1>Об авторе проекта</h1>
+
+    <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            <h4>Информация об авторе</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Имя автора:</strong> {{author_name}}</p>
+            <p><strong>Группа:</strong> {{author_group}}</p>
+            <p><strong>Приложение:</strong> {{app_name}}</p>
+            <p><strong>Версия приложения:</strong> {{app_version}}</p>
+        </div>
+    </div>
+
+    <ul id="navigation" style="margin-top: 20px; list-style-type: none; padding-left: 0;">
+        {% for item in navigation %}
+            <li style="margin-bottom: 10px;">
+                <a href="{{ item.href }}">{{ item.caption }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

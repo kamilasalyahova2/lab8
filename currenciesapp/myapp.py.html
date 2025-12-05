@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>myapp.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+myapp.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">jinja2 </span><span class="s0">import </span><span class="s1">Environment</span><span class="s2">, </span><span class="s1">PackageLoader</span><span class="s2">, </span><span class="s1">select_autoescape</span>
+<span class="s0">from </span><span class="s1">models </span><span class="s0">import </span><span class="s1">Author</span><span class="s2">, </span><span class="s1">User</span>
+<span class="s0">from </span><span class="s1">http</span><span class="s2">.</span><span class="s1">server </span><span class="s0">import </span><span class="s1">HTTPServer</span><span class="s2">, </span><span class="s1">BaseHTTPRequestHandler</span>
+
+<span class="s3">#main_author=author.Author(&quot;Kamila&quot;,'Р3124')</span>
+<span class="s1">main_author</span><span class="s2">= </span><span class="s1">Author</span><span class="s2">(</span><span class="s4">&quot;Kamila&quot;</span><span class="s2">,</span><span class="s4">'Р3124'</span><span class="s2">)</span>
+<span class="s1">main_user</span><span class="s2">=</span><span class="s1">User</span><span class="s2">(</span><span class="s4">'54345'</span><span class="s2">,</span><span class="s4">'Leisan'</span><span class="s2">)</span>
+<span class="s1">env </span><span class="s2">= </span><span class="s1">Environment</span><span class="s2">(</span>
+    <span class="s1">loader</span><span class="s2">=</span><span class="s1">PackageLoader</span><span class="s2">(</span><span class="s4">'myapp'</span><span class="s2">),</span>
+    <span class="s1">autoescape</span><span class="s2">=</span><span class="s1">select_autoescape</span><span class="s2">()</span>
+<span class="s2">)</span>
+
+<span class="s1">template </span><span class="s2">= </span><span class="s1">env</span><span class="s2">.</span><span class="s1">get_template</span><span class="s2">(</span><span class="s4">&quot;index.html&quot;</span><span class="s2">)</span>
+
+<span class="s1">result </span><span class="s2">= </span><span class="s1">template</span><span class="s2">.</span><span class="s1">render</span><span class="s2">(</span><span class="s1">myapp</span><span class="s2">=</span><span class="s4">&quot;CurrenciesListApp&quot;</span><span class="s2">,</span>
+                      <span class="s1">navigation</span><span class="s2">=[{</span><span class="s4">'caption'</span><span class="s2">: </span><span class="s4">'Основная страница'</span><span class="s2">,</span>
+                                   <span class="s4">'href'</span><span class="s2">: </span><span class="s4">&quot;https://nickzhukov.ru&quot; </span><span class="s2">},</span>
+                                  <span class="s2">{</span><span class="s4">'caption'</span><span class="s2">: </span><span class="s4">'Об авторе'</span><span class="s2">,</span><span class="s4">'href'</span><span class="s2">:</span><span class="s4">'/author'</span><span class="s2">}</span>
+                                  <span class="s2">],</span>
+                         <span class="s1">author_name</span><span class="s2">=</span><span class="s1">main_author</span><span class="s2">.</span><span class="s1">name</span><span class="s2">,</span>
+                         <span class="s1">author_group</span><span class="s2">=</span><span class="s1">main_author</span><span class="s2">.</span><span class="s1">group</span><span class="s2">,</span>
+                         <span class="s1">user_id</span><span class="s2">=</span><span class="s1">main_user</span><span class="s2">.</span><span class="s1">id</span><span class="s2">,</span>
+                         <span class="s1">user_name</span><span class="s2">=</span><span class="s1">main_user</span><span class="s2">.</span><span class="s1">name</span><span class="s2">)</span>
+
+
+<span class="s0">class </span><span class="s1">SimpleHTTPRequestHandler</span><span class="s2">(</span><span class="s1">BaseHTTPRequestHandler</span><span class="s2">):</span>
+    <span class="s0">def </span><span class="s1">do_GET</span><span class="s2">(</span><span class="s1">self</span><span class="s2">):</span>
+        <span class="s0">global </span><span class="s1">result</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">send_response</span><span class="s2">(</span><span class="s5">200</span><span class="s2">)</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">send_header</span><span class="s2">(</span><span class="s4">'Content-Type'</span><span class="s2">, </span><span class="s4">'text/html; charset=utf-8'</span><span class="s2">)</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">end_headers</span><span class="s2">()</span>
+        <span class="s3">#result = &quot;&lt;html&gt;&lt;h1&gt;Hello, world!&lt;/h1&gt;&lt;/html&gt;&quot;</span>
+        <span class="s1">self</span><span class="s2">.</span><span class="s1">wfile</span><span class="s2">.</span><span class="s1">write</span><span class="s2">(</span><span class="s1">bytes</span><span class="s2">(</span><span class="s1">result</span><span class="s2">, </span><span class="s4">&quot;utf-8&quot;</span><span class="s2">))</span>
+
+
+
+
+<span class="s0">if </span><span class="s1">__name__ </span><span class="s2">== </span><span class="s4">'__main__'</span><span class="s2">:</span>
+    <span class="s1">httpd </span><span class="s2">= </span><span class="s1">HTTPServer</span><span class="s2">((</span><span class="s4">'localhost'</span><span class="s2">, </span><span class="s5">8080</span><span class="s2">), </span><span class="s1">SimpleHTTPRequestHandler</span><span class="s2">)</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s4">'server is running'</span><span class="s2">)</span>
+    <span class="s1">httpd</span><span class="s2">.</span><span class="s1">serve_forever</span><span class="s2">()</span>
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</body>
+</html>

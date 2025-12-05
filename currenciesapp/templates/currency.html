@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Курсы валют</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="margin: 20px;">
+    <h1>Курсы валют</h1>
+    <li><a href="/currencies">Курсы валют</a></li>
+
+    <ul id="navigation" style="margin-top: 20px; list-style-type: none; padding-left: 0;">
+        {% for item in navigation %}
+            <li style="margin-bottom: 10px;">
+                <a href="{{ item.href }}">{{ item.caption }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

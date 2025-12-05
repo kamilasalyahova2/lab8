@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Главная - {{app_name}}</title>  <!-- Исправлено -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="margin: 20px;">
+    <h1>{{app_name}} - Главная страница</h1>  <!-- Добавлено -->
+
+    <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            <h4>Информация о приложении</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Название:</strong> {{myapp}}</p>
+            <p><strong>Версия:</strong> {{version}}</p>
+            <p><strong>Автор:</strong> {{author_name}} ({{author_group}})</p>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header bg-success text-white">
+            <h4>Примеры пользователей</h4>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>{{user_name}} (ID: {{user_id}})</li>
+                <li>{{user1_name}} (ID: {{user1_id}})</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/users" class="btn btn-info">Список пользователей</a>
+        <a href="/currencies" class="btn btn-success">Курсы валют</a>
+        <a href="/author" class="btn btn-warning">Об авторе</a>
+    </div>
+
+    <ul id="navigation" style="margin-top: 20px; list-style-type: none; padding-left: 0;">
+        {% for item in navigation %}
+            <li style="margin-bottom: 10px;">
+                <a href="{{ item.href }}">{{ item.caption }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
